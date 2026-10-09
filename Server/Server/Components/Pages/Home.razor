@@ -1,0 +1,54 @@
+﻿@page "/"
+@using Server.Services
+@inject FileService FileService
+@rendermode InteractiveServer
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>File name</th>
+                <th />
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var file in Files)
+            {
+                if (!string.IsNullOrEmpty(file))
+                {
+                    <tr>
+                        <th>@file</th>
+                        <th><i role="button" class="bi bi-trash" @onclick="() => DeleteFile(file)"></i></th>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<string?> Files { get; set; } = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        GetFiles();
+        
+        base.OnInitialized();
+    }
+
+    private void GetFiles()
+    {
+        Files = FileService.GetFiles();
+    }
+    
+    private Task DeleteFile(string file)
+    {
+        FileService.DeleteFile(file);
+        
+        GetFiles();
+
+        return Task.CompletedTask;
+    }
+}
