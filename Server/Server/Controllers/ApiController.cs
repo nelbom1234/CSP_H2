@@ -14,16 +14,32 @@ public class ApiController : ControllerBase
         _fileService = fileService;
     }
     
-    // GET
     [HttpGet("GetFiles")]
     public IEnumerable<string?> GetFiles()
     {
-        return _fileService.GetFiles();
+        var files = _fileService.GetFiles();
+
+        HttpContext.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:63343");
+        
+        return files;
     }
 
-    [HttpPost]
-    public IActionResult UploadFile(IFormFile file)
+    [HttpGet("DownloadFile")]
+    public async Task<IFormFile>? DownloadFile(string fileName)
     {
+        HttpContext.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:63343");
         
+        var file = await _fileService.DownloadFileAsync(fileName);
+        
+        return file;
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        HttpContext.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:63343");
+        
+        await _fileService.SavefileAsync(file);
+        return Ok();
     }
 }

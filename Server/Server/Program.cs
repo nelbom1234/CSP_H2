@@ -26,6 +26,8 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+app.MapPost("/api/uploadFile", (HttpRequest request) => Results.Ok()).DisableAntiforgery();
+
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

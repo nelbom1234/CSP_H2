@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <h1 id="title">
+    Client
+  </h1>
+  <h3>
+    Files
+  </h3>
+  <ul id="files"></ul>
+
+
+    <h3>
+      Upload
+    </h3>
+  <div class="uploadWrapper">
+    <form action="http://localhost:5262/api/uploadFile" method="post">
+      <input type="file" id="uploadFile" accept=".txt" />
+      <button id="uploadButton" type="submit">Upload</button>
+    </form>
+  </div>
+
+  <h3>
+    Download
+  </h3>
+  <div class="downloadWrapper">
+    <input id="downloadFile" />
+    <button id="downloadButton" onclick="downloadFile()">Download</button>
+  </div>
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

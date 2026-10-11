@@ -15,4 +15,20 @@ public class FileService
     {
         File.Delete(Path.Combine(_fileBasePath, file));
     }
+
+    public async Task<IFormFile> DownloadFileAsync(string fileName)
+    {
+        await using var stream = new FileStream(Path.Combine(_fileBasePath, fileName), FileMode.Open);
+        return new FormFile(stream, 0, stream.Length, fileName, Path.GetFileName(fileName))
+        {
+            Headers =  new HeaderDictionary(),
+            ContentDisposition = "attachment; filename=" + fileName,
+        };
+    }
+
+    public async Task SavefileAsync(IFormFile file)
+    {
+        await using var stream = new FileStream(Path.Combine(_fileBasePath, file.FileName), FileMode.Create);
+        await file.CopyToAsync(stream);
+    }
 }
