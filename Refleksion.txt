@@ -1,0 +1,12 @@
+- De væsentligste forskelle imellem JavaScript og et OOP sprog, som C#, er type-sikkerhed og DOM-manipulation. Javascript bruger ikke statiske typer, og det betyder at et variabels type er ukendt indtil runtime, og variabler kan skifte type i programmets løb. På den anden side har javascript mange værktøjer til at manipulere ens DOM direkte, hvilket giver meget fleksibilitet i udvikling.
+
+- På serveren er opsat en api som har endpoints til at downloade og uploade filer. Disse bliver så kaldt fra klienten.
+
+- endpoints are defineret i ApiController. De kan kaldes med '/api/{endpoint}'. Serveren er både en web api og en gui-app fordi den også har en gui hvor man kan se de uploadede filer og slette dem, hvis man vil.
+
+- controller based api definerer kontrollere, ligesom man vil gøre med en gui-baseret webserver. hver controller er sit eget subdomæne, som så har diverse endpoints som man kan kalde.
+Minimal api er hurtigere at implementere til en vis størrelse, men skalerer ikke særligt godt. Man definerer sine endpoints direkte i program startup, istedet for i en indbygget klasse struktur, hvilket betyder at man også skal opsætte alt om igen til hvert endpoint, istedet for at kunne definere noget basis routing og opsætning i en controller.
+
+- Når vi kalder til api'en bruges der ajax, hvilket er et asynkront kald, for at fremme performance.
+
+- Jeg har brugt TrustedHTML til at sanitere filnavne fra serveren for html, for at undgå XSS ved hjælp af html tags i fil navnene
